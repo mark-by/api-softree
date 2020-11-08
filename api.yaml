@@ -106,6 +106,23 @@ paths:
                     type: integer
         '401':
           description: Пользователь неавторизован
+  '/users/change-password':
+    put:
+      tags:
+        - password
+      summary: 'Обновление полей'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Пользователь неавторизован
+        '400':
+          description: Ошибка обновления
   '/watchers':
     get:
       tags:
@@ -125,23 +142,67 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Rate'
-  '/change-password':
-    put:
+  '/rates':
+    get:
       tags:
-        - password
-      summary: 'Обновление полей'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChangePassword'
+        - rate
+      summary: Возвращает список всех валют относительно USD
+      description: В случае, если указан initial, то возвращаются значения котировок в начале дня
+      parameters:
+        - in: query
+          name: initial
+          required: false
+          schema:
+            type: boolean
       responses:
         '200':
-          description: OK
-        '401':
-          description: Пользователь неавторизован
-        '400':
-          description: Ошибка обновления
+          description: Список котировок
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    value:
+                      type: number
+  '/rates/{title}':
+    get:
+      tags:
+        - rate
+      summary: Получение информации о валюте (история)
+      parameters:
+        - in: path
+          name: title
+          schema:
+            type: string
+        - in: query
+          name: period
+          schema:
+            type: string
+            example:
+              - day
+              - week
+              - month
+              - year
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    datetime:
+                      type: string
+                      format: date-time
+                    value:
+                      type: number
+
 components:
   schemas:
     ChangePassword:
