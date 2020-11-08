@@ -40,6 +40,11 @@ paths:
                 $ref: '#/components/schemas/User'
         '400':
           description: 'Неправильные данные'
+    delete:
+      tags:
+        - user
+      summary: 'выход из системы'
+
   '/users':
     post:
       tags:
