@@ -43,7 +43,22 @@ paths:
     delete:
       tags:
         - user
-      summary: 'выход из системы'
+      summary: 'Выход из системы'
+    get:
+      tags:
+        - user
+      summary: 'Аутентификация'
+      responses:
+        '200':
+          description: 'Авторизация прошла успешно'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 'Неправильные данные'
+        '401':
+          description: 'Не авторизован'
 
   '/users':
     post:
