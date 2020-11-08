@@ -90,7 +90,7 @@ paths:
         - schema:
             type: string
           in: cookie
-          name: sessionid
+          name: session_id
           required: true
       responses:
         '200':
@@ -113,7 +113,7 @@ paths:
       summary: Возвращает список котировок, за которыми следит пользователь
       parameters:
         - in: cookie
-          name: sessionid
+          name: session_id
           schema:
             type: string
       responses:
@@ -149,25 +149,20 @@ components:
         - old_password
         - new_password
       properties:
-        oldPassword:
+        old_password:
           type: string
-        newPassword1:
-          type: string
-        newPassword2:
+        new_password:
           type: string
     User:
       type: object
       required:
-        - id
         - email
+        - avatar
       properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
         email:
           type: string
+        avatar:
+          type: base64
     Error:
       type: object
       required:
