@@ -175,6 +175,7 @@ paths:
       summary: Получение информации о валюте (история)
       parameters:
         - in: path
+          required: true
           name: title
           schema:
             type: string
@@ -223,7 +224,8 @@ components:
         email:
           type: string
         avatar:
-          type: base64
+          type: string
+          format: base64
     Error:
       type: object
       required:
