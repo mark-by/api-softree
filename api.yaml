@@ -113,7 +113,7 @@ paths:
       summary: Возвращает список котировок, за которыми следит пользователь
       parameters:
         - in: cookie
-          name: session_id
+          name: sessionid
           schema:
             type: string
       responses:
@@ -146,9 +146,8 @@ components:
   schemas:
     ChangePassword:
       required:
-        - oldPassword
-        - newPassword1
-        - newPassword2
+        - old_password
+        - new_password
       properties:
         oldPassword:
           type: string
