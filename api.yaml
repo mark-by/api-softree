@@ -44,6 +44,11 @@ paths:
       tags:
         - user
       summary: 'Выход из системы'
+      responses:
+        '200':
+          description: 'Выход из системы прошел успешно'
+        '401':
+          description: 'Нет куки'
     get:
       tags:
         - user
