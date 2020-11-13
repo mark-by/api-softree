@@ -203,9 +203,57 @@ paths:
                       format: date-time
                     value:
                       type: number
+  '/accounts/':
+    get:
+      summary: Получение кошельков
+      parameters:
+        - in: cookie
+          name: session_id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          description: UnAuthorize
+    post:
+      summary: Добавление кошелька
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: USD
+      responses:
+        '201':
+          description: ok
+        '401':
+          description: unAuth
+
 
 components:
   schemas:
+    Account:
+      type: object
+      required:
+        - title
+        - value
+      properties:
+        title:
+          type: string
+          example: USD
+        value:
+          type: number
+          example: 2345234.234
     ChangePassword:
       required:
         - old_password
