@@ -301,7 +301,6 @@ components:
       required:
         - from
         - to
-        - to_value
         - amount
       properties:
         from:
@@ -310,9 +309,6 @@ components:
         to:
           type: string
           example: USD
-        value:
-          type: number
-          example: 0.013
         amount:
           type: number
           example: 1000
