@@ -228,7 +228,7 @@ paths:
                       format: date-time
                     value:
                       type: number
-  '/accounts/':
+  '/accounts':
     get:
       summary: Получение кошельков
       parameters:
@@ -236,6 +236,7 @@ paths:
           name: session_id
           schema:
             type: string
+          required: true
       responses:
         '200':
           description: ok
@@ -249,6 +250,12 @@ paths:
           description: UnAuthorize
     post:
       summary: Добавление кошелька
+      parameters:
+        - in: cookie
+          name: session_id
+          schema:
+            type: string
+          required: true
       requestBody:
         content:
           application/json:
@@ -263,10 +270,76 @@ paths:
           description: ok
         '401':
           description: unAuth
+  '/transactions':
+    get:
+      summary: Получение истории транзакций
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+    post:
+      summary: Перевод из валюты в валюты
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransaction'
+      responses:
+        '201':
+          description: ok
 
 
 components:
   schemas:
+    CreateTransaction:
+      type: object
+      required:
+        - from
+        - to
+        - to_value
+        - amount
+      properties:
+        from:
+          type: string
+          example: RUB
+        to:
+          type: string
+          example: USD
+        value:
+          type: number
+          example: 0.013
+        amount:
+          type: number
+          example: 1000
+    Transaction:
+      type: object
+      required:
+        - from
+        - to
+        - to_value
+        - amount
+        - datetime
+      properties:
+        from:
+          type: string
+          example: RUB
+        to:
+          type: string
+          example: USD
+        value:
+          type: number
+          example: 0.013
+        amount:
+          type: number
+          example: 1000
+        datetime:
+          type: string
+          format: date-time
     Account:
       type: object
       required:
