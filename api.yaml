@@ -302,7 +302,7 @@ components:
         - currency
         - base
         - amount
-        - action
+        - sell
       properties:
         currency:
           type: string
@@ -313,16 +313,15 @@ components:
         amount:
           type: number
           example: 1000
-        action:
-          type: string
-          example: sell
+        sell:
+          type: boolean
     Transaction:
       type: object
       required:
         - currency
         - base
         - amount
-        - action
+        - sell
         - value
         - datetime
       properties:
@@ -341,9 +340,8 @@ components:
         datetime:
           type: string
           format: date-time
-        action:
-          type: string
-          example: sell
+        sell:
+          type: boolean
     Account:
       type: object
       required:
