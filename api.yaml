@@ -9,14 +9,14 @@ servers:
   - url: 'http://localhost:3000'
 tags:
   - name: user
-    description: User
-  - name: currency
-    description: Валюта
+    description: Пользователь
   - name: rate
-    description: Котировка
+    description: Курс
+  - name: bag
+    description: Портфель
 
 paths:
-  '/sessions':
+  '/session':
     post:
       tags:
         - user
@@ -64,8 +64,7 @@ paths:
           description: 'Неправильные данные'
         '401':
           description: 'Не авторизован'
-
-  '/users':
+  '/user':
     post:
       tags:
         - user
@@ -95,18 +94,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FieldError'
-    put:
-      tags:
-        - user
-      summary: 'Обновление полей'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: OK
     get:
       tags:
         - user
@@ -131,10 +118,23 @@ paths:
                     type: integer
         '401':
           description: Пользователь неавторизован
-  '/users/change-password':
+  '/user/avatar':
     put:
       tags:
-        - password
+        - user
+      summary: 'Обновление полей'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+  '/user/password':
+    put:
+      tags:
+        - user
       summary: 'Обновление полей'
       requestBody:
         content:
@@ -228,8 +228,36 @@ paths:
                       format: date-time
                     value:
                       type: number
+  '/income':
+    get:
+      tags:
+        - bag
+      summary: Получение дохода за определенный период
+      parameters:
+        - in: query
+          name: period
+          schema:
+            type: string
+            example:
+              - day
+              - week
+              - month
+              - year
+          required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: number
+                example: -500.5
+        '401':
+          description: UnAuthorize
   '/accounts':
     get:
+      tags:
+        - bag
       summary: Получение кошельков
       parameters:
         - in: cookie
@@ -249,7 +277,9 @@ paths:
         '401':
           description: UnAuthorize
     post:
-      summary: Добавление кошелька
+      tags:
+        - bag
+      summary: Добавление кошельков
       parameters:
         - in: cookie
           name: session_id
@@ -272,6 +302,8 @@ paths:
           description: unAuth
   '/transactions':
     get:
+      tags:
+        - bag
       summary: Получение истории транзакций
       responses:
         '200':
@@ -283,6 +315,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Transaction'
     post:
+      tags:
+        - bag
       summary: Перевод из валюты в валюты
       requestBody:
         content:
