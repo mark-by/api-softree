@@ -299,43 +299,51 @@ components:
     CreateTransaction:
       type: object
       required:
-        - from
-        - to
+        - currency
+        - base
         - amount
+        - action
       properties:
-        from:
-          type: string
-          example: RUB
-        to:
+        currency:
           type: string
           example: USD
+        base:
+          type: string
+          example: RUB
         amount:
           type: number
           example: 1000
+        action:
+          type: string
+          example: sell
     Transaction:
       type: object
       required:
-        - from
-        - to
-        - to_value
+        - currency
+        - base
         - amount
+        - action
+        - value
         - datetime
       properties:
-        from:
-          type: string
-          example: RUB
-        to:
+        currency:
           type: string
           example: USD
+        base:
+          type: string
+          example: RUB
         value:
           type: number
-          example: 0.013
+          example: 76.018
         amount:
           type: number
           example: 1000
         datetime:
           type: string
           format: date-time
+        action:
+          type: string
+          example: sell
     Account:
       type: object
       required:
