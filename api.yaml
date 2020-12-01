@@ -16,7 +16,7 @@ tags:
     description: Портфель
 
 paths:
-  '/session':
+  '/sessions':
     post:
       tags:
         - user
@@ -64,7 +64,7 @@ paths:
           description: 'Неправильные данные'
         '401':
           description: 'Не авторизован'
-  '/user':
+  '/users':
     post:
       tags:
         - user
@@ -118,7 +118,7 @@ paths:
                     type: integer
         '401':
           description: Пользователь неавторизован
-  '/user/avatar':
+  '/users/avatar':
     put:
       tags:
         - user
@@ -131,7 +131,7 @@ paths:
       responses:
         '200':
           description: OK
-  '/user/password':
+  '/users/password':
     put:
       tags:
         - user
