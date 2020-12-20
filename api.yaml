@@ -276,6 +276,28 @@ paths:
                   $ref: '#/components/schemas/Account'
         '401':
           description: UnAuthorize
+  '/accounts/history':
+    get:
+      tags:
+        - bag
+      summary: Получение кошельков
+      parameters:
+        - in: cookie
+          name: session_id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          description: UnAuthorize
     post:
       tags:
         - bag
